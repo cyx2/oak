@@ -17,14 +17,14 @@ var (
 	ctx        context.Context
 )
 
-type price struct {
-	trade_id int
-	price    float32
-	size     float32
-	bid      float32
-	ask      float32
-	volume   float32
-	time     time.Time
+type Price struct {
+	Trade_id int
+	Price    string
+	Size     string
+	Bid      string
+	Ask      string
+	Volume   string
+	Time     time.Time
 }
 
 func initializeConfig() {
