@@ -27,7 +27,7 @@ func TestPriceInsert(t *testing.T) {
 
 var historic_data Historic_data
 
-func TestGetHistoricData(t *testing.T) {
+func TestGetHistoricDataSingle(t *testing.T) {
 	err := godotenv.Load()
 	if err != nil {
 		// Heroku maintains config once deployed, so deferring to this config in lieu
@@ -44,4 +44,15 @@ func TestGetHistoricData(t *testing.T) {
 	if historic_data[0][1] != 57805.87 {
 		t.Errorf("Returned value does not match expected value, got %v want %v", historic_data[0][1], 57805.87)
 	}
+}
+
+func TestGetHistoricDataBatch(t *testing.T) {
+	err := godotenv.Load()
+	if err != nil {
+		// Heroku maintains config once deployed, so deferring to this config in lieu
+		// of a .env file
+		log.Println("TEST: Failed to pull .env config")
+	}
+
+	load_historic_data(5)
 }

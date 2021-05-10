@@ -11,5 +11,5 @@ func insertPrice(newPrice Price) {
 		log.Fatal(err)
 	}
 
-	log.Printf("\nDB: Inserted document with id: %s", insertResult.InsertedID)
+	log.Printf("DB: Inserted document with id: %s", insertResult.InsertedID)
 }
