@@ -27,7 +27,7 @@ type Price struct {
 	Time     time.Time
 }
 
-func initializeConfig() {
+func initialize_config() {
 	// Utilize godotenv to load config from .env file on local machine
 	err := godotenv.Load()
 	if err != nil {
@@ -38,7 +38,7 @@ func initializeConfig() {
 	log.Printf("INIT: Loaded the %s config set", os.Getenv("ENV"))
 }
 
-func initializeDb() {
+func initialize_db() {
 	// Determine the Atlas DB based on the ENV config variable
 	switch os.Getenv("ENV") {
 	case "PROD":
@@ -50,12 +50,12 @@ func initializeDb() {
 	log.Printf("INIT: Writing to the %s db", db)
 
 	// MongoDB Atlas connection params and string computed based on the environment
-	cxnParams := "/?retryWrites=true&w=majority"
-	dbCxnString := "mongodb+srv://" + os.Getenv("DB_USER") + ":" + os.Getenv("DB_PASSWORD") + "@" + os.Getenv("DB_URL") + "/" + db + cxnParams
+	cxn_params := "/?retryWrites=true&w=majority"
+	db_cxn_string := "mongodb+srv://" + os.Getenv("DB_USER") + ":" + os.Getenv("DB_PASSWORD") + "@" + os.Getenv("DB_URL") + "/" + db + cxn_params
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(dbCxnString))
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(db_cxn_string))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -66,6 +66,6 @@ func initializeDb() {
 }
 
 func main() {
-	initializeConfig()
-	initializeDb()
+	initialize_config()
+	initialize_db()
 }

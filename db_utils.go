@@ -4,7 +4,7 @@ import (
 	"log"
 )
 
-func insertPrice(newPrice Price) {
+func insert_price(newPrice Price) {
 
 	insertResult, err := collection.InsertOne(ctx, newPrice)
 	if err != nil {

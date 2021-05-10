@@ -8,11 +8,11 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func TestPriceInsert(t *testing.T) {
-	initializeConfig()
-	initializeDb()
+func Test_Price_Insert(t *testing.T) {
+	initialize_config()
+	initialize_db()
 
-	testDocument := Price{
+	test_document := Price{
 		Trade_id: 123456789,
 		Price:    "111.11",
 		Size:     "222.22",
@@ -22,12 +22,12 @@ func TestPriceInsert(t *testing.T) {
 		Time:     time.Now(),
 	}
 
-	insertPrice(testDocument)
+	insert_price(test_document)
 }
 
 var historic_data Historic_data
 
-func TestGetHistoricDataSingle(t *testing.T) {
+func Test_Get_Historic_Data_Single(t *testing.T) {
 	err := godotenv.Load()
 	if err != nil {
 		// Heroku maintains config once deployed, so deferring to this config in lieu
@@ -46,7 +46,7 @@ func TestGetHistoricDataSingle(t *testing.T) {
 	}
 }
 
-func TestGetHistoricDataBatch(t *testing.T) {
+func Test_Get_Historic_Data_Batch(t *testing.T) {
 	err := godotenv.Load()
 	if err != nil {
 		// Heroku maintains config once deployed, so deferring to this config in lieu

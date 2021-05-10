@@ -8,7 +8,7 @@ import (
 func load_historic_data(minutes int) {
 	later_bound := time.Now().Unix()
 
-	// 60 * 300, because Coinbase API returns max 300 length array
+	// 60 * minutes, because Coinbase API returns max 300 length array
 	// and Unix Epoch time is in seconds
 	early_bound := later_bound - (60 * int64(minutes))
 
@@ -37,7 +37,7 @@ func load_historic_data(minutes int) {
 
 		// fmt.Printf("Price in this object is %v\n", price_string)
 
-		loadPrice := Price{
+		load_price := Price{
 			Trade_id: 0,
 			Price:    price_string,
 			Size:     "",
@@ -47,8 +47,8 @@ func load_historic_data(minutes int) {
 			Time:     time.Unix(int64(historic_data[i][0]), 0),
 		}
 
-		fmt.Printf("Price in the data structure is %s\n", loadPrice.Price)
+		fmt.Printf("Price in the data structure is %s\n", load_price.Price)
 
-		insertPrice(loadPrice)
+		insert_price(load_price)
 	}
 }
