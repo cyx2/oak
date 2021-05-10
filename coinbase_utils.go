@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -8,7 +9,9 @@ import (
 	"time"
 )
 
-func get_historic_data(start time.Time, end time.Time) {
+type Historic_data [][]float32
+
+func get_historic_data(start time.Time, end time.Time) *Historic_data {
 	// Construct the HTTP request conformant to Coinbase API
 	// 1) URL, 2) Params
 
@@ -26,6 +29,8 @@ func get_historic_data(start time.Time, end time.Time) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	sb := string(body)
-	log.Printf(sb)
+
+	var historic_data Historic_data
+	json.Unmarshal(body, &historic_data)
+	return &historic_data
 }
