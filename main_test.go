@@ -56,5 +56,11 @@ func Test_Get_Historic_Data_Batch(t *testing.T) {
 		log.Println("TEST: Failed to pull .env config")
 	}
 
-	load_historic_data(300)
+	load_historic_data(1)
+}
+
+func Test_Websocket_Connection(t *testing.T) {
+	initialize_config()
+
+	connect_to_websocket()
 }

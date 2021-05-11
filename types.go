@@ -11,3 +11,14 @@ type Price struct {
 	Volume   string
 	Time     time.Time
 }
+
+type Coinbase_Websocket_Subscribe struct {
+	Type        string                                 `json:"type"`
+	Product_ids []string                               `json:"product_ids"`
+	Channels    []Coinbase_Websocket_Channel_Subscribe `json:"channels"`
+}
+
+type Coinbase_Websocket_Channel_Subscribe struct {
+	Name        string   `json:"name"`
+	Product_ids []string `json:"product_ids"`
+}
