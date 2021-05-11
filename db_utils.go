@@ -6,10 +6,10 @@ import (
 
 func insert_price(newPrice Price) {
 
-	insertResult, err := collection.InsertOne(ctx, newPrice)
+	insert_result, err := collection.InsertOne(ctx, newPrice)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	log.Printf("DB: Inserted document with id: %s", insertResult.InsertedID)
+	log.Printf("DB: Inserted document with id: %s", insert_result.InsertedID)
 }

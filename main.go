@@ -17,16 +17,6 @@ var (
 	ctx        context.Context
 )
 
-type Price struct {
-	Trade_id int
-	Price    string
-	Size     string
-	Bid      string
-	Ask      string
-	Volume   string
-	Time     time.Time
-}
-
 func initialize_config() {
 	// Utilize godotenv to load config from .env file on local machine
 	err := godotenv.Load()
@@ -61,7 +51,7 @@ func initialize_db() {
 	}
 
 	// Set the global collection variable for all dbs
-	collection = client.Database(db).Collection("prices")
+	collection = client.Database(db).Collection(os.Getenv("DB_COLLECTION"))
 	log.Printf("INFO: Connected to the Atlas cluster %s", os.Getenv("DB_URL"))
 }
 

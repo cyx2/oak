@@ -44,6 +44,8 @@ func Test_Get_Historic_Data_Single(t *testing.T) {
 	if historic_data[0][1] != 57805.87 {
 		t.Errorf("Returned value does not match expected value, got %v want %v", historic_data[0][1], 57805.87)
 	}
+
+	collection.Drop(ctx)
 }
 
 func Test_Get_Historic_Data_Batch(t *testing.T) {
@@ -54,5 +56,5 @@ func Test_Get_Historic_Data_Batch(t *testing.T) {
 		log.Println("TEST: Failed to pull .env config")
 	}
 
-	load_historic_data(5)
+	load_historic_data(300)
 }
