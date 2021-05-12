@@ -11,3 +11,5 @@ type Price struct {
 	Volume   string
 	Time     time.Time
 }
+
+type Coinbase_Historic_Data [][]float64

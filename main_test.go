@@ -25,7 +25,7 @@ func Test_Price_Insert(t *testing.T) {
 	insert_price(test_document)
 }
 
-var historic_data Historic_data
+var historic_data Coinbase_Historic_Data
 
 func Test_Get_Historic_Data_Single(t *testing.T) {
 	err := godotenv.Load()
@@ -56,5 +56,5 @@ func Test_Get_Historic_Data_Batch(t *testing.T) {
 		log.Println("TEST: Failed to pull .env config")
 	}
 
-	load_historic_data(300)
+	load_historic_data(5)
 }

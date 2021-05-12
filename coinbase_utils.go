@@ -10,9 +10,7 @@ import (
 	"time"
 )
 
-type Historic_data [][]float64
-
-func get_historic_data(start_epoch time.Time, end_epoch time.Time) *Historic_data {
+func get_historic_data(start_epoch time.Time, end_epoch time.Time) *Coinbase_Historic_Data {
 	// Construct the HTTP request conformant to Coinbase API
 	// 1) URL, 2) Params
 
@@ -33,7 +31,7 @@ func get_historic_data(start_epoch time.Time, end_epoch time.Time) *Historic_dat
 		log.Fatal(err)
 	}
 
-	var historic_data Historic_data
+	var historic_data Coinbase_Historic_Data
 	json.Unmarshal(body, &historic_data)
 	return &historic_data
 }
