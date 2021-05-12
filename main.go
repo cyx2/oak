@@ -39,6 +39,7 @@ func initialize_db() {
 	}
 
 	log.Printf("INIT: Writing to the %s db", db)
+	log.Printf("INIT: Writing to the %s collection", os.Getenv("DB_COLLECTION"))
 
 	// MongoDB Atlas connection params and string computed based on the environment
 	cxn_params := "/?retryWrites=true&w=majority"
@@ -65,7 +66,7 @@ func listen_for_tickers() {
 			select {
 			case <-ticker.C:
 				ticker_ptr := get_coinbase_ticker()
-				insert_price(*ticker_ptr)
+				go insert_price(*ticker_ptr)
 			case <-quit:
 				ticker.Stop()
 				log.Println("Stopped the ticker")
