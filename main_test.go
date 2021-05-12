@@ -51,10 +51,17 @@ func Test_Get_Historic_Data_Single(t *testing.T) {
 func Test_Get_Historic_Data_Batch(t *testing.T) {
 	err := godotenv.Load()
 	if err != nil {
-		// Heroku maintains config once deployed, so deferring to this config in lieu
-		// of a .env file
 		log.Println("TEST: Failed to pull .env config")
 	}
 
 	load_historic_data(5)
+}
+
+func Test_Get_Coinbase_Ticker(t *testing.T) {
+	err := godotenv.Load()
+	if err != nil {
+		log.Println("TEST: Failed to pull .env config")
+	}
+
+	_ = get_bitcoin_ticker()
 }
