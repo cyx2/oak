@@ -75,6 +75,14 @@ func listen_for_tickers() {
 		}
 	}()
 
+}
+
+func main() {
+	initialize_config()
+	initialize_db()
+
+	go listen_for_tickers()
+
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, os.Interrupt)
 
@@ -85,11 +93,4 @@ func listen_for_tickers() {
 			return
 		}
 	}
-}
-
-func main() {
-	initialize_config()
-	initialize_db()
-
-	listen_for_tickers()
 }
