@@ -12,14 +12,14 @@ func Test_Price_Insert(t *testing.T) {
 	initialize_config()
 	initialize_db()
 
-	test_document := Price{
+	test_document := Coinbase_Ticker{
 		Trade_id: 123456789,
 		Price:    "111.11",
 		Size:     "222.22",
+		Time:     time.Now(),
 		Bid:      "333.33",
 		Ask:      "444.44",
 		Volume:   "555.55",
-		Time:     time.Now(),
 	}
 
 	insert_price(test_document)
@@ -44,8 +44,6 @@ func Test_Get_Historic_Data_Single(t *testing.T) {
 	if historic_data[0][1] != 57805.87 {
 		t.Errorf("Returned value does not match expected value, got %v want %v", historic_data[0][1], 57805.87)
 	}
-
-	collection.Drop(ctx)
 }
 
 func Test_Get_Historic_Data_Batch(t *testing.T) {

@@ -20,16 +20,6 @@ func load_historic_data(minutes int) {
 
 	fmt.Printf("INFO: Number of historic records is %v\n", len(historic_data))
 
-	// type Price struct {
-	// 	Trade_id int
-	// 	Price    string
-	// 	Size     string
-	// 	Bid      string
-	// 	Ask      string
-	// 	Volume   string
-	// 	Time     time.Time
-	// }
-
 	for i := range historic_data {
 		// price_string := strconv.FormatFloat(historic_data[i][4], 'E', -1, 64)
 
@@ -37,14 +27,14 @@ func load_historic_data(minutes int) {
 
 		// fmt.Printf("Price in this object is %v\n", price_string)
 
-		load_price := Price{
+		load_price := Coinbase_Ticker{
 			Trade_id: 0,
 			Price:    price_string,
 			Size:     "",
+			Time:     time.Unix(int64(historic_data[i][0]), 0),
 			Bid:      "",
 			Ask:      "",
 			Volume:   "",
-			Time:     time.Unix(int64(historic_data[i][0]), 0),
 		}
 
 		fmt.Printf("Price in the data structure is %s\n", load_price.Price)
