@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"os"
+	"os/signal"
 	"time"
 
 	"github.com/joho/godotenv"
@@ -62,20 +63,32 @@ func listen_for_tickers() {
 	go func() {
 		for {
 			select {
-			case t := <-ticker.C:
+			case <-ticker.C:
 				ticker_ptr := get_coinbase_ticker()
 				insert_price(*ticker_ptr)
-				log.Printf("INFO: Ticked %s\n", t.String())
 			case <-quit:
 				ticker.Stop()
+				log.Println("Stopped the ticker")
 				return
 			}
 		}
 	}()
 
+	interrupt := make(chan os.Signal, 1)
+	signal.Notify(interrupt, os.Interrupt)
+
+	for {
+		select {
+		case <-interrupt:
+			log.Println("INFO: Interrupt")
+			return
+		}
+	}
 }
 
 func main() {
 	initialize_config()
 	initialize_db()
+
+	listen_for_tickers()
 }

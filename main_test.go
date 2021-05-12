@@ -65,10 +65,7 @@ func Test_Get_Coinbase_Ticker(t *testing.T) {
 }
 
 func Test_Listen_For_Tickers(t *testing.T) {
-	err := godotenv.Load()
-	if err != nil {
-		log.Println("TEST: Failed to pull .env config")
-	}
-
+	initialize_config()
+	initialize_db()
 	listen_for_tickers()
 }
