@@ -61,5 +61,5 @@ func Test_Get_Coinbase_Ticker(t *testing.T) {
 		log.Println("TEST: Failed to pull .env config")
 	}
 
-	_ = get_bitcoin_ticker()
+	_ = get_coinbase_ticker()
 }

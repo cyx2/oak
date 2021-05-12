@@ -33,7 +33,7 @@ func get_historic_data(start_epoch time.Time, end_epoch time.Time) *Coinbase_His
 	return &historic_data
 }
 
-func get_bitcoin_ticker() *Coinbase_Ticker {
+func get_coinbase_ticker() *Coinbase_Ticker {
 	var ticker_data Coinbase_Ticker
 
 	cxn_string := os.Getenv("CB_URL_ROOT") + os.Getenv("CB_URL_TICKER")
