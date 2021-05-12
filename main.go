@@ -55,6 +55,26 @@ func initialize_db() {
 	log.Printf("INFO: Connected to the Atlas cluster %s", os.Getenv("DB_URL"))
 }
 
+func listen_for_tickers() {
+	ticker := time.NewTicker(5 * time.Second)
+	quit := make(chan struct{})
+
+	go func() {
+		for {
+			select {
+			case t := <-ticker.C:
+				ticker_ptr := get_coinbase_ticker()
+				insert_price(*ticker_ptr)
+				log.Printf("INFO: Ticked %s\n", t.String())
+			case <-quit:
+				ticker.Stop()
+				return
+			}
+		}
+	}()
+
+}
+
 func main() {
 	initialize_config()
 	initialize_db()
