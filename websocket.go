@@ -54,11 +54,32 @@ func connect_to_websocket() {
 	go func() {
 		defer close(done)
 		for {
+			var payload Coinbase_Websocket_Ticket_Payload
+
 			_, message, err := c.ReadMessage()
 			if err != nil {
 				log.Println("ERROR: Message read error: ", err)
 				return
 			}
+
+			err = json.Unmarshal(message, &payload)
+			if err != nil {
+				log.Println("ERROR: Message unmarshal error: ", err)
+				return
+			}
+
+			load_price := Price{
+				Trade_id: payload.TradeID,
+				Price:    payload.Price,
+				Size:     payload.LastSize,
+				Bid:      payload.BestBid,
+				Ask:      payload.BestAsk,
+				Volume:   payload.Volume24H,
+				Time:     payload.Time,
+			}
+
+			insert_price(load_price)
+
 			log.Printf("DATA: %s", message)
 		}
 	}()
