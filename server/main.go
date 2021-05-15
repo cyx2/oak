@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"os"
+	"os/signal"
 	"time"
 
 	"github.com/joho/godotenv"
@@ -38,6 +39,7 @@ func initialize_db() {
 	}
 
 	log.Printf("INIT: Writing to the %s db", db)
+	log.Printf("INIT: Writing to the %s collection", os.Getenv("DB_COLLECTION"))
 
 	// MongoDB Atlas connection params and string computed based on the environment
 	cxn_params := "/?retryWrites=true&w=majority"
@@ -55,7 +57,37 @@ func initialize_db() {
 	log.Printf("INFO: Connected to the Atlas cluster %s", os.Getenv("DB_URL"))
 }
 
+func listen_for_tickers() {
+	ticker := time.NewTicker(5 * time.Second)
+	quit := make(chan struct{})
+
+	for {
+		select {
+		case <-ticker.C:
+			ticker_ptr := get_coinbase_ticker()
+			go insert_price(*ticker_ptr)
+		case <-quit:
+			ticker.Stop()
+			log.Println("Stopped the ticker")
+			return
+		}
+	}
+}
+
 func main() {
 	initialize_config()
 	initialize_db()
+
+	go listen_for_tickers()
+
+	interrupt := make(chan os.Signal, 1)
+	signal.Notify(interrupt, os.Interrupt)
+
+	for {
+		select {
+		case <-interrupt:
+			log.Println("INFO: Interrupt")
+			return
+		}
+	}
 }

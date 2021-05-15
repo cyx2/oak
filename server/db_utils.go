@@ -4,7 +4,7 @@ import (
 	"log"
 )
 
-func insert_price(newPrice Price) {
+func insert_price(newPrice Coinbase_Ticker) {
 
 	insert_result, err := collection.InsertOne(ctx, newPrice)
 	if err != nil {
