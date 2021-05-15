@@ -61,20 +61,17 @@ func listen_for_tickers() {
 	ticker := time.NewTicker(5 * time.Second)
 	quit := make(chan struct{})
 
-	go func() {
-		for {
-			select {
-			case <-ticker.C:
-				ticker_ptr := get_coinbase_ticker()
-				go insert_price(*ticker_ptr)
-			case <-quit:
-				ticker.Stop()
-				log.Println("Stopped the ticker")
-				return
-			}
+	for {
+		select {
+		case <-ticker.C:
+			ticker_ptr := get_coinbase_ticker()
+			go insert_price(*ticker_ptr)
+		case <-quit:
+			ticker.Stop()
+			log.Println("Stopped the ticker")
+			return
 		}
-	}()
-
+	}
 }
 
 func main() {
