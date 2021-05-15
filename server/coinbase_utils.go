@@ -21,8 +21,7 @@ func get_historic_data(start_epoch time.Time, end_epoch time.Time) *Coinbase_His
 
 	resp, err := http.Get(cxn_string)
 	if err != nil {
-		log.Println("WARN: Coinbase API read failed")
-		log.Println(err)
+		log.Fatal(err)
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
